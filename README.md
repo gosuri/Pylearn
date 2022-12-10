@@ -115,3 +115,157 @@ Needless to say, `_` should be used only for calculating the result of the last 
 
 In addtion to the `int` and `float` types, Python supports other types of numbers, such as `Decimal` and `Fraction`. Python also has built-in support for complex numbers, and uses the `j` or `J` suffix to indicate the imaginary part (e.g. `3+5j`).
 
+
+### Strings
+
+Strings in python can be enclosed in single quotes or double quotes. Triple quotes can be used to span multiple lines.
+
+
+```python
+>>> 'spam eggs'  # single quotes
+'spam eggs'
+>>> 'doesn\'t'  # use \' to escape the single quote...
+"doesn't"
+>>> "doesn't"  # ...or use double quotes instead
+"doesn't"
+>>> '"Yes," they said.'
+'"Yes," they said.'
+>>> "\"Yes,\" they said."
+'"Yes," they said.'
+>>> '"Isn\'t," they said.'
+'"Isn\'t," they said.'
+>>> """ This is a multi-line string.
+... This is the second line.
+... """
+```
+
+In interactive mode, the prompt string, `>>>`, is considered part of the string, if it is the first line. This means that multi-line input must be indented:
+
+```python
+>>> print("""\
+... Usage: thingy [OPTIONS]
+...      -h                        Display this usage message
+...      -H hostname               Hostname to connect to
+... """)
+Usage: thingy [OPTIONS]
+     -h                        Display this usage message
+     -H hostname               Hostname to connect to
+```
+
+Strings can be concatenated (glued together) with the `+` operator, and repeated with `*`:
+
+```python
+>>> 3 * 'un' + 'ium'
+'unununium'
+```
+String concatenation only works with two literals, not with variables or expressions:
+
+```python
+>>> prefix = 'Py'
+>>> prefix 'thon'  # can't concatenate a variable and a string literal
+  File "<stdin>", line 1
+    prefix 'thon'
+                ^
+SyntaxError: invalid syntax
+>>> ('un' * 3) 'ium'
+  File "<stdin>", line 1
+    ('un' * 3) 'ium'
+                   ^
+SyntaxError: invalid syntax
+```
+
+To concatenate variables or a variable and a literal, use `+`:
+
+```python
+>>> prefix + 'thon'
+'Python'
+```
+Strings can be indexed, with the first character having index 0. There is no separate character type; a character is simply a string of size one:
+
+```python
+>>> word = 'Python'
+>>> word[0]  # character in position 0
+'P'
+>>> word[5]  # character in position 5
+'n'
+```
+Indices may also be negative numbers, to start counting from the right:
+
+```python
+>>> word[-1]  # last character
+'n'
+>>> word[-2]  # second-last character
+'o'
+>>> word[-6]
+'P'
+```
+In addition to indexing, slicing is also supported. While indexing is used to obtain individual characters, slicing allows you to obtain substring:
+
+```python
+>>> word[0:2]  # characters from position 0 (included) to 2 (excluded)
+'Py'
+>>> word[2:5]  # characters from position 2 (included) to 5 (excluded)
+'tho'
+```
+Note how the start is always included, and the end always excluded. This makes sure that `s[:i] + s[i:]` is always equal to `s`:
+
+```python  
+>>> word[:2] + word[2:]
+'Python'
+>>> word[:4] + word[4:]
+'Python'
+```
+Slice indices have useful defaults; an omitted first index defaults to zero, an omitted second index defaults to the size of the string being sliced.
+
+```python
+>>> word[:2]   # character from the beginning to position 2 (excluded)
+'Py'
+>>> word[4:]   # characters from position 4 (included) to the end
+'on'
+>>> word[-2:]  # characters from the second-last (included) to the end
+'on'
+```
+Attempting to use an index that is too large will result in an error:
+
+```python
+>>> word[42]  # the word only has 6 characters
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: string index out of range
+
+```
+However, out of range slice indexes are handled gracefully when used for slicing:
+
+```python
+>>> word[4:42]
+'on'
+>>> word[42:]
+''
+```
+Python strings cannot be changed — they are immutable. Therefore, assigning to an indexed position in the string results in an error:
+
+```python
+>>> word[0] = 'J'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment
+>>> word[2:] = 'py'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment
+```
+If you need a different string, you should create a new one:
+
+```python
+>>> 'J' + word[1:]
+'Jython'
+>>> word[:2] + 'py'
+'Pypy'
+```
+The built-in function `len()` returns the length of a string:
+
+```python
+>>> s = 'supercalifragilisticexpialidocious'
+>>> len(s)
+34
+```
