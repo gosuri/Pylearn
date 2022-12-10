@@ -2,7 +2,7 @@
 
 Python is a programming language that lets you work quickly and integrate systems more effectively. 
 
-This respository documents my journey as I learn Python. I am using the [Python Tutorial](https://docs.python.org/3/tutorial/index.html) as a guide. I am also using the [Python 3.6.1 documentation](https://docs.python.org/3.6/) as a reference.
+This respository documents my journey as I learn Python. I am using the [Python Tutorial](https://docs.python.org/3/tutorial/index.html) as a guide. I am also using the [Python 3.6.1 documentation](https://docs.python.org/3/index.html) as a reference.
 
 ## Table of Contents
 
@@ -42,3 +42,5 @@ This respository documents my journey as I learn Python. I am using the [Python 
     1. [Standard Modules](Modules.md#standard-modules)
     1. [The `dir()` Function](Modules.md#the-dir-function)
     1. [Packages](Modules.md#packages)
+1. [Input and Output](IO.md)
+    1. [Formatted Output](IO.md#formatted-output)
