@@ -21,4 +21,16 @@ import sys
 print(sys.argv)
 ```
 
-## The Python Environment
+### Source Code Encoding
+
+The default encoding for Python source code is UTF-8. This means that you can use Unicode identifiers in your Python programs (yay emojis! 🙌). To declare another encoding, you can use a comment at the top of the file:
+
+```python
+# -*- coding: encoding -*-
+```
+One exception to the first line rule when declaring the encoding is when the first line is a shebang line. In this case, the encoding declaration must be on the second line. For example:
+
+```python
+#!/usr/bin/env python3
+# -*- coding: cp1252 -*-
+```
