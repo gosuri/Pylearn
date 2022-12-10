@@ -269,3 +269,239 @@ The built-in function `len()` returns the length of a string:
 >>> len(s)
 34
 ```
+
+### Lists
+
+Lists are the most versatile of Python's compound data types. A list contains items separated by commas and enclosed within square brackets (`[]`). To some extent, lists are similar to arrays in C. One difference between them is that all the items belonging to a list can be of different data type, but usually the items all have the same type.
+
+The values stored in a list can be accessed using the slice operator (`[]` and `[:]`) with indexes starting at 0 in the beginning of the list and working their way to end -1. The plus (`+`) sign is the list concatenation operator, and the asterisk (`*`) is the repetition operator.
+
+The following example will help to clarify these concepts:
+
+```python
+>>> # List slicing
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits[0]  # indexing returns the item
+'orange'
+>>> fruits[0:3]  # slicing returns a new list
+['orange', 'apple', 'pear']
+>>> fruits[3:]  # slicing returns a new list
+['banana', 'kiwi', 'apple', 'banana']
+>>> fruits[:3]  # slicing returns a new list
+['orange', 'apple', 'pear']
+>>> fruits[-3:]  # slicing returns a new list
+['kiwi', 'apple', 'banana']
+>>> fruits[:]  # slicing returns a new list
+['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits[::2]  # slicing returns a new list
+['orange', 'pear', 'kiwi', 'banana']
+>>> fruits[::-1]  # slicing returns a new list
+['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange']
+>>> fruits[::-2]  # slicing returns a new list
+['banana', 'kiwi', 'pear', 'orange']
+>>> fruits[3:-1]  # slicing returns a new list
+['banana', 'kiwi', 'apple']
+>>> fruits[3:-2]  # slicing returns a new list
+['banana', 'kiwi']
+>>> fruits[3:-3]  # slicing returns a new list
+['banana']
+```
+Lists also support operations like concatenation:
+
+```python
+>>> fruits + ['grape', 'mango']
+['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana', 'grape', 'mango']
+```
+... and repetition:
+
+```python
+>>> fruits * 2
+['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana', 'orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+```
+... and membership testing:
+
+```python
+>>> 'orange' in fruits
+True
+>>> 'grape' in fruits
+False
+```
+... and iteration:
+
+```python
+>>> for fruit in fruits:
+...     print(fruit)
+...
+orange
+apple
+pear
+banana
+kiwi
+apple
+banana
+```
+Lists can be nested:
+
+```python
+>>> a = ['a', 'b', 'c']
+>>> n = [1, 2, 3]
+>>> x = [a, n]
+>>> x
+[['a', 'b', 'c'], [1, 2, 3]]
+>>> x[0]
+['a', 'b', 'c']
+>>> x[0][1]
+'b'
+```
+Lists are a mutable type, i.e. it is possible to change their content:
+
+```python
+>>> fruits[0] = 'grape'
+>>> fruits
+['grape', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+```
+The built-in function `len()` also applies to lists:
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> len(fruits)
+7
+```
+It is possible to append new items to the end of the list, by using the `append()` method (we will see more about methods later):
+
+```python
+>>> fruits.append('grape')
+>>> fruits
+['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana', 'grape']
+```
+Assignment to slices is also possible, and this can even change the size of the list or clear it entirely:
+
+```python
+
+>>> # Replace some items:
+>>> fruits[0:2] = ['grape', 'apple']
+>>> fruits
+['grape', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana', 'grape']
+>>> # Remove some:
+>>> fruits[0:2] = []
+>>> fruits
+['pear', 'banana', 'kiwi', 'apple', 'banana', 'grape']
+>>> # Clear the list by replacing all the elements with an empty list:
+>>> fruits[:] = []
+>>> fruits
+[]
+```
+The `del` statement can also be used to remove items from a list:
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> del fruits[0]
+>>> fruits
+['apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+```
+It is possible to remove multiple items from a list using the `del` statement:
+
+```python
+>>> del fruits[0:2]
+>>> fruits
+['banana', 'kiwi', 'apple', 'banana']
+```
+The `del` statement can also be used to remove an entire list:
+
+```python
+>>> del fruits
+>>> fruits
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'fruits' is not defined
+```
+The `remove()` method removes the first matching value, not a specific index:
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.remove('apple')
+>>> fruits
+['orange', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+```
+The `pop()` method removes the item at the given index and returns it. If no index is specified, `pop()` removes and returns the last item in the list.
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.pop()
+'banana'
+>>> fruits
+['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple']
+>>> fruits.pop(0)
+'orange'
+>>> fruits
+['apple', 'pear', 'banana', 'kiwi', 'apple']
+```
+The `insert()` method inserts an item at a given position. The first argument is the index of the element before which to insert, so `a.insert(0, x)` inserts at the front of the list, and `a.insert(len(a), x)` is equivalent to `a.append(x)`.
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.insert(0, 'grape')
+>>> fruits
+['grape', 'orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+```
+The `clear()` method removes all items from the list. Equivalent to `del a[:]`.
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.clear()
+>>> fruits
+[]
+```
+The `index()` method returns the index of the first item whose value is equal to the argument. It raises a `ValueError` if there is no such item.
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.index('banana')
+3
+>>> fruits.index('banana', 4)  # Find next banana starting a position 4
+6
+>>> fruits.index('grape')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: 'grape' is not in list
+```
+The `count()` method returns the number of times the argument appears in the list.
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.count('apple')
+2
+>>> fruits.count('grape')
+0
+```
+The `sort()` method sorts the items of the list in place (the arguments can be used for sort customization, see `sorted()` for their explanation).
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.sort()
+>>> fruits
+['apple', 'apple', 'banana', 'banana', 'kiwi', 'orange', 'pear']
+```
+
+The `reverse()` method reverses the elements of the list in place.
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.reverse()
+>>> fruits
+['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange']
+```
+The `copy()` method returns a shallow copy of the list. Equivalent to `a[:]`.
+
+```python
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits_copy = fruits.copy()
+>>> fruits_copy
+['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+```
+The `list()` constructor builds lists from iterables:
+
+```python
+>>> list('cat')
+['c', 'a', 't']
+```
